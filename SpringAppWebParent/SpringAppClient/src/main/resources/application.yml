@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     password: 1234567
-    url: jdbc:mysql://localhost:3306/database_name
+    url: jdbc:mysql://localhost:3306/timezone_db
     username: root
   jpa:
     hibernate:
