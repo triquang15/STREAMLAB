@@ -151,4 +151,9 @@ public class Product extends IdBasedEntity {
 		return "/p/" + this.alias + "/";
 	}
 
+	public Product(String name) {
+		super();
+		this.name = name;
+	}
+
 }
