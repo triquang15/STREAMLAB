@@ -8,22 +8,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "roles")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Role extends IdBasedEntity {
-	
+
 	@Column(length = 40, nullable = false, unique = true)
 	private String name;
-	
+
 	@Column(length = 150, nullable = false)
 	private String description;
-
-	
 
 	@Override
 	public int hashCode() {
@@ -50,10 +50,4 @@ public class Role extends IdBasedEntity {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return this.name;
-	}
-
-	
 }

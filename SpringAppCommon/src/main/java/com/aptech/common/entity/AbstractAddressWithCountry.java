@@ -1,6 +1,5 @@
 package com.aptech.common.entity;
 
-
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
@@ -41,4 +40,3 @@ public class AbstractAddressWithCountry extends AbstractAddress {
 		return address;
 	}	
 }
-

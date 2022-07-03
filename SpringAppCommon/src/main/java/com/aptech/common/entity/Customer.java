@@ -8,19 +8,15 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "customers")
+@NoArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
 public class Customer extends AbstractAddressWithCountry {
 
 	@Column(nullable = false, unique = true, length = 45)
@@ -43,7 +39,11 @@ public class Customer extends AbstractAddressWithCountry {
 
 	@Column(name = "reset_password_token", length = 30)
 	private String resetPasswordToken;
-	
+
+	public Customer(Integer id) {
+		this.id = id;
+	}
+
 	public String getFullName() {
 		return firstName + " " + lastName;
 	}

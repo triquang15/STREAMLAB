@@ -29,10 +29,10 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "products")
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
 public class Product extends IdBasedEntity {
 
@@ -95,6 +95,10 @@ public class Product extends IdBasedEntity {
 	private boolean customerCanReview;
 	@Transient
 	private boolean reviewedByCustomer;
+	
+	public Product(String name) {
+		this.name = name;
+	}
 
 	public void addExtraImage(String imageName) {
 		this.images.add(new ProductImage(imageName, this));
@@ -132,7 +136,6 @@ public class Product extends IdBasedEntity {
 	@Transient
 	public String getShortName() {
 		if (name.length() > 70) {
-
 			return name.substring(0, 70).concat("...");
 		}
 		return name;
