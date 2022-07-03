@@ -1,3 +1,4 @@
+
 package com.aptech.common.entity.product;
 
 import java.util.ArrayList;
@@ -95,7 +96,7 @@ public class Product extends IdBasedEntity {
 	private boolean customerCanReview;
 	@Transient
 	private boolean reviewedByCustomer;
-	
+
 	public Product(String name) {
 		this.name = name;
 	}
