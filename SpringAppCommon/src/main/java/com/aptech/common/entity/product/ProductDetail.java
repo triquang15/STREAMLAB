@@ -12,15 +12,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "product_details")
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
 public class ProductDetail extends IdBasedEntity {
 
 	@Column(nullable = false, length = 255)
@@ -32,7 +30,7 @@ public class ProductDetail extends IdBasedEntity {
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Product product;
-
+	
 	public ProductDetail(Integer id, String name, String value, Product product) {
 		super();
 		this.id = id;

@@ -21,11 +21,10 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "categories")
+@NoArgsConstructor
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
-
 public class Category extends IdBasedEntity {
 
 	@Column(length = 128, nullable = false, unique = true)
@@ -113,14 +112,6 @@ public class Category extends IdBasedEntity {
 	@Override
 	public String toString() {
 		return this.name;
-	}
-
-	public String getAllParentIDs() {
-		return allParentIDs;
-	}
-
-	public void setAllParentIDs(String allParentIDs) {
-		this.allParentIDs = allParentIDs;
 	}
 
 }
