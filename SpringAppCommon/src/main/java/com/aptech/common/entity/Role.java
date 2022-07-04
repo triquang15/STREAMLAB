@@ -16,6 +16,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Role extends IdBasedEntity {
 
 	@Column(length = 40, nullable = false, unique = true)
@@ -48,12 +49,5 @@ public class Role extends IdBasedEntity {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return this.name;
-	}
-	
-	
 
 }
