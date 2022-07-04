@@ -14,14 +14,14 @@ public class MainController {
 		return "index";
 	}
 
-	@GetMapping("/login")
-	public String viewLoginPage() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-			return "login";
-		}
-
-		return "redirect:/";
-	}
+//	@GetMapping("/login")
+//	public String viewLoginPage() {
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+//			return "login";
+//		}
+//
+//		return "redirect:/";
+//	}
 
 }
