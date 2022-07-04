@@ -27,7 +27,7 @@ public class SecurityConfiguration {
 
 		http.authorizeRequests()
 		.antMatchers("/states/list_by_country/**").hasAnyAuthority("Admin", "Salesperson")
-		.antMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin")
+		//.antMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin")
 		.antMatchers("/categories/**", "/brands/**").hasAnyAuthority("Admin", "Editor")
 		
 		.antMatchers("/products/new", "/products/delete/**").hasAnyAuthority("Admin", "Editor")
@@ -69,7 +69,7 @@ public class SecurityConfiguration {
 
 	@Bean
 	public WebSecurityCustomizer webSecurityCustomizer() {
-		return (web) -> web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**");
+		return (web) -> web.ignoring().antMatchers("/images/**", "/vendors/**", "/css/**", "/js/**", "/webjars/**");
 	}
 
 }
