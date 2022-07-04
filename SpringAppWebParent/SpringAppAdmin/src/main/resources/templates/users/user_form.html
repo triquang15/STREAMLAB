@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datatable - Voler Admin Dashboard</title>
+    <title>Create New User</title>
     
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     
@@ -12,6 +12,7 @@
     <link rel="stylesheet" th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}">
     <link rel="stylesheet" th:href="@{/css/app.css}">
     <link rel="shortcut icon" th:href="@{/images/logo.jpg}" type="image/x-icon">
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}" ></script>
 </head>
 <body>
     <div id="app">
@@ -77,34 +78,7 @@
                         <li>
                             <a href="component-dropdowns.html">Dropdowns</a>
                         </li>
-                        
-                        <li>
-                            <a href="component-list-group.html">List Group</a>
-                        </li>
-                        
-                        <li>
-                            <a href="component-modal.html">Modal</a>
-                        </li>
-                        
-                        <li>
-                            <a href="component-navs.html">Navs</a>
-                        </li>
-                        
-                        <li>
-                            <a href="component-pagination.html">Pagination</a>
-                        </li>
-                        
-                        <li>
-                            <a href="component-progress.html">Progress</a>
-                        </li>
-                        
-                        <li>
-                            <a href="component-spinners.html">Spinners</a>
-                        </li>
-                        
-                        <li>
-                            <a href="component-tooltips.html">Tooltips</a>
-                        </li>
+                                            
                         
                     </ul>
                     
@@ -136,96 +110,7 @@
                 
             
                 
-                <li class='sidebar-title'>Forms &amp; Tables</li>
-                
-            
-                
-                <li class="sidebar-item  has-sub">
-
-                    <a href="#" class='sidebar-link'>
-                        <i data-feather="file-text" width="20"></i> 
-                        <span>Form Elements</span>
-                    </a>
-
-                    
-                    <ul class="submenu ">
-                        
-                        <li>
-                            <a href="form-element-input.html">Input</a>
-                        </li>
-                        
-                        <li>
-                            <a href="form-element-input-group.html">Input Group</a>
-                        </li>
-                        
-                        <li>
-                            <a href="form-element-select.html">Select</a>
-                        </li>
-                        
-                        <li>
-                            <a href="form-element-radio.html">Radio</a>
-                        </li>
-                        
-                        <li>
-                            <a href="form-element-checkbox.html">Checkbox</a>
-                        </li>
-                        
-                        <li>
-                            <a href="form-element-textarea.html">Textarea</a>
-                        </li>
-                        
-                    </ul>
-                    
-                </li>
-                
-            
-                
-                <li class="sidebar-item  ">
-
-                    <a href="form-layout.html" class='sidebar-link'>
-                        <i data-feather="layout" width="20"></i> 
-                        <span>Form Layout</span>
-                    </a>
-
-                    
-                </li>
-                
-            
-                
-                <li class="sidebar-item  ">
-
-                    <a href="form-editor.html" class='sidebar-link'>
-                        <i data-feather="layers" width="20"></i> 
-                        <span>Form Editor</span>
-                    </a>
-
-                    
-                </li>
-                
-            
-                
-                <li class="sidebar-item  ">
-
-                    <a href="table.html" class='sidebar-link'>
-                        <i data-feather="grid" width="20"></i> 
-                        <span>Table</span>
-                    </a>
-
-                    
-                </li>
-                
-            
-                
-                <li class="sidebar-item active ">
-
-                    <a href="table-datatable.html" class='sidebar-link'>
-                        <i data-feather="file-plus" width="20"></i> 
-                        <span>Datatable</span>
-                    </a>
-
-                    
-                </li>
-                
+              
             
                 
                 <li class='sidebar-title'>Extra UI</li>
@@ -284,38 +169,7 @@
                 
             
                 
-                <li class='sidebar-title'>Pages</li>
-                
-            
-                
-                <li class="sidebar-item  has-sub">
-
-                    <a href="#" class='sidebar-link'>
-                        <i data-feather="user" width="20"></i> 
-                        <span>Authentication</span>
-                    </a>
-
-                    
-                    <ul class="submenu ">
-                        
-                        <li>
-                            <a href="auth-login.html">Login</a>
-                        </li>
-                        
-                        <li>
-                            <a href="auth-register.html">Register</a>
-                        </li>
-                        
-                        <li>
-                            <a href="auth-forgot-password.html">Forgot Password</a>
-                        </li>
-                        
-                    </ul>
-                    
-                </li>
-                
-            
-                
+              
                 <li class="sidebar-item  has-sub">
 
                     <a href="#" class='sidebar-link'>
@@ -433,50 +287,78 @@
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <h3>Manage Users </h3>
-                <a th:href="@{/users/new}">Add New User</a>
+                <h3>Add New User </h3>
             </div>
-            
-            <div th:if="${message != null}" class="alert alert-success text-center">
-				[[${message}]]
-			</div>
             <div class="card-body">
-                <table class='table table-striped table-hover' id="table1">
-                    <thead >
-                        <tr>      
-                       	    <th>ID</th>                                      
-                            <th>Email</th>
-                            <th>Photos</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Roles</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="user : ${listUsers}">
-                            <td>[[${user.id}]]</td>
-                            <td>[[${user.email}]]</td>
-                            <td></td>
-                            <td>[[${user.firstName}]]</td>
-                            <td>[[${user.lastName}]]</td>
-                            <td>[[${user.roles}]]</td>
-                            <td>                        
-                                <span class="badge bg-success">[[${user.enabled}]]</span>
-                            </td>
-                            <td>
-								Edit &nbsp; Delete
-							</td>
-                        </tr>
-                       
-                    </tbody>
-                </table>
+                <form th:action="@{/users/save}" method="post" th:object="${user}">
+                
+                        <div class="row">
+                        
+                        	 <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="email-id-column">Email</label>
+                                    <input type="email" id="email-id-column" class="form-control" name="email-id-column" th:field="*{email}" required minlength="8" maxlength="128">
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="first-name-column">First Name</label>
+                                    <input type="text" id="first-name-column" th:field="*{firstName}" required minlength="2" maxlength="45" class="form-control"  name="fname-column">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="last-name-column">Last Name</label>
+                                    <input type="text" id="last-name-column" class="form-control"  name="lname-column" th:field="*{lastName}" required minlength="2" maxlength="45">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="username-column">Password</label>                            
+                                    <input type="password" class="form-control" th:field="*{password}" required minlength="8" maxlength="20"  />
+                                </div>
+                            </div>
+                            
+                             <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="username-column">Enabled</label>                            
+                                    <input type="checkbox" th:field="*{enabled}" />
+                                </div>
+                            </div>
+                           
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="username-column">Roles</label>   <br>                        
+                                    <th:block th:each="role : ${listRoles}">
+							<input type="checkbox" th:field="*{roles}" 
+								th:text="${role.name}"
+								th:value="${role.id}"
+								class="m-2"
+								/>
+							- <small>[[${role.description}]]</small>
+								<br/>
+						</th:block>
+                                </div>
+                            </div>
+                           
+                        </diV>
+
+                                
+                        <div class="clearfix">
+                       		<div class="text-center">
+			<input type="submit" value="Submit" class="btn btn-primary m-3" />
+			<input type="button" value="Cancel" class="btn btn-danger" id="buttonCancel" />
+		</div>     
+                        </div>
+                    </form>
             </div>
         </div>
 
     </section>
 </div>
+
+
 
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
@@ -490,11 +372,19 @@
             </footer>
         </div>
     </div>
+    
+    <script type="text/javascript">
+	$(document).ready(function() {
+		$("#buttonCancel").on("click", function() {
+			window.location = "[[@{/users}]]";
+		});
+	});
+	
+</script>
+    
     <script th:src="@{/js/feather-icons/feather.min.js}"></script>
     <script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
     <script th:src="@{/js/app.js}"></script>  
-	<script th:src="@{/vendors/simple-datatables/simple-datatables.js}"></script>
-	<script th:src="@{/js/vendors.js}"></script>
     <script th:src="@{/js/main.js}"></script>
 </body>
 </html>
