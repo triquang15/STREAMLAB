@@ -51,12 +51,19 @@ public class User extends IdBasedEntity {
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
+//	@Transient
+//	public String getPhotosImagePath() {
+//		if (id == null || photos == null)
+//			return "/images/default-user.png";
+//
+//		return Constants.S3_BASE_URI + "/user-photos/" + this.id + "/" + this.photos;
+//	}
+//	
 	@Transient
 	public String getPhotosImagePath() {
-		if (id == null || photos == null)
-			return "/images/default-user.png";
-
-		return Constants.S3_BASE_URI + "/user-photos/" + this.id + "/" + this.photos;
+		if (id == null || photos == null) return "/images/default-user.png";
+		
+		return "/user-photos/" + this.id + "/" + this.photos;
 	}
 
 	@Transient

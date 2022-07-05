@@ -162,7 +162,8 @@
             </div>
            
                 
-                    <form th:action="@{/users/save}" method="post" th:object="${user}" onsubmit="return checkEmailUnique(this);">
+                    <form th:action="@{/users/save}" method="post" enctype="multipart/form-data"
+                    	 th:object="${user}" onsubmit="return checkEmailUnique(this);">
                     <input type="hidden" th:field="*{id}" />
                  <div class="card-body">
                         <div class="row">
@@ -201,6 +202,15 @@
                                 <div class="form-group">
                                     <label for="username-column">Enabled</label>                            
                                     <input type="checkbox" th:field="*{enabled}" />
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="username-column">Photos</label> 
+                                    <input type="hidden" th:field="*{photos}" />                           
+                                    <input type="file" name="image" id="fileImage" accept="image/png, image/jpeg, image/jpg"/>
+                                    <img id='thumbnail' alt="Image preview" th:src="@{${user.photosImagePath}}" class="img-fluid">
                                 </div>
                             </div>
                            
@@ -277,7 +287,30 @@
 		$("#buttonCancel").on("click", function() {
 			window.location = "[[@{/users}]]";
 		});
+		
+		$("#fileImage").change(function() {
+			fileSize = this.files[0].size;
+			
+			if (fileSize > 1048576) {
+				this.setCustomValidity("You must choose an image less than 1MB!");
+				this.reportValidity();
+			} else {
+				this.setCustomValidity("");
+				showImageThumbnail(this);				
+			}
+			
+		});
 	});
+	
+	function showImageThumbnail(fileInput) {
+		var file = fileInput.files[0];
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$("#thumbnail").attr("src", e.target.result);
+		};
+		
+		reader.readAsDataURL(file);
+	}
 	
 	function checkEmailUnique(form) {
 		url = "[[@{/users/check_email}]]";
