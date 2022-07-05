@@ -1,24 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[[${pageTitle}]]</title>
-    
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
-    
-    <link rel="stylesheet" th:href="@{/vendors/simple-datatables/style.css}">
-
-    <link rel="stylesheet" th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}">
-    <link rel="stylesheet" th:href="@{/css/app.css}">
-    <link rel="shortcut icon" th:href="@{/images/logo.jpg}" type="image/x-icon">
-	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}" ></script>
-	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" ></script>
-	
-
-   
-	
-</head>
+<head th:replace="fragments :: page_head('User - TimeZone Admin')" />
 <body>
     <div id="app">
         <div id="sidebar" class='active'>
