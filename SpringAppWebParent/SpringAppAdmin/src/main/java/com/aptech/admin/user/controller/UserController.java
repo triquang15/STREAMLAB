@@ -3,6 +3,8 @@ package com.aptech.admin.user.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.aptech.admin.FileUploadUtil;
 import com.aptech.admin.user.UserNotFoundException;
 import com.aptech.admin.user.UserService;
+import com.aptech.admin.user.export.UserCsvExporter;
+import com.aptech.admin.user.export.UserExcelExporter;
+import com.aptech.admin.user.export.UserPdfExporter;
 import com.aptech.common.entity.Role;
 import com.aptech.common.entity.User;
 
@@ -43,6 +48,7 @@ public class UserController {
 
 		model.addAttribute("user", user);
 		model.addAttribute("listRoles", listRoles);
+		model.addAttribute("pageTitle", "Create New User");
 
 		return "users/user_form";
 	}
@@ -50,25 +56,25 @@ public class UserController {
 	@PostMapping("/users/save")
 	public String saveUser(User user, RedirectAttributes redirectAttributes,
 			@RequestParam("image") MultipartFile multipartFile) throws IOException {
-		
+
 		if (!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			user.setPhotos(fileName);
 			User savedUser = service.save(user);
-			
+
 			String uploadDir = "user-photos/" + savedUser.getId();
-			
+
 			FileUploadUtil.cleanDir(uploadDir);
 			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-			
+
 		} else {
-			if (user.getPhotos().isEmpty()) user.setPhotos(null);
+			if (user.getPhotos().isEmpty())
+				user.setPhotos(null);
 			service.save(user);
 		}
-		
-		
+
 		redirectAttributes.addFlashAttribute("message", "The user has been saved successfully.");
-		
+
 		return "redirect:/users";
 	}
 
@@ -106,13 +112,34 @@ public class UserController {
 	@GetMapping("/users/{id}/enabled/{status}")
 	public String updateUserEnabledStatus(@PathVariable("id") Integer id, @PathVariable("status") boolean enabled,
 			RedirectAttributes redirectAttributes) {
-		
+
 		service.updateUserEnabledStatus(id, enabled);
 		String status = enabled ? "enabled" : "disabled";
 		String message = "The user ID " + id + " has been " + status;
 		redirectAttributes.addFlashAttribute("message", message);
-		
+
 		return "redirect:/users";
 
+	}
+
+	@GetMapping("/users/export/csv")
+	public void exportToCSV(HttpServletResponse response) throws IOException {
+		List<User> listUsers = service.listAll();
+		UserCsvExporter exporter = new UserCsvExporter();
+		exporter.export(listUsers, response);
+	}
+	
+	@GetMapping("/users/export/excel")
+	public void exportToExcel(HttpServletResponse response) throws IOException {
+		List<User> listUsers = service.listAll();
+		UserExcelExporter exporter = new UserExcelExporter();
+		exporter.export(listUsers, response);
+	}
+	
+	@GetMapping("/users/export/pdf")
+	public void exportToPDF(HttpServletResponse response) throws IOException {
+		List<User> listUsers = service.listAll();
+		UserPdfExporter exporter = new UserPdfExporter();
+		exporter.export(listUsers, response);
 	}
 }

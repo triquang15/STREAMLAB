@@ -178,8 +178,14 @@
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <h3>Manage Users </h3>
-                <a th:href="@{/users/new}">Add New User</a>
+                <h3>Manage Users </h3> <br>
+                <a th:href="@{/users/new}" class="fas fa-user-plus fa-2x mr-2" title="Add New User"></a>
+                &nbsp;&nbsp; 
+                <a th:href="@{/users/export/csv}" class="fas fa-file-csv fa-2x mr-2 icon-success" title="Export to CSV"></a>
+                &nbsp;&nbsp; 
+                <a th:href="@{/users/export/excel}" class="fas fa-file-excel fa-2x mr-2 icon-excel" title="Export to Excel"></a>
+                &nbsp;&nbsp; 
+                <a th:href="@{/users/export/pdf}" class="fas fa-file-pdf fa-2x icon-red" title="Export to PDF"></a>
             </div>
             
             <div th:if="${message != null}" class="alert alert-success text-center">
