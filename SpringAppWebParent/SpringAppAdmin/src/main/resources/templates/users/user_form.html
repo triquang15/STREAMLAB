@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New User</title>
+    <title>[[${pageTitle}]]</title>
     
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     
@@ -36,7 +36,7 @@
                 
                 <li class="sidebar-item  ">
 
-                    <a href="index.html" class='sidebar-link'>
+                    <a th:href="@{/}" class='sidebar-link'>
                         <i data-feather="home" width="20"></i> 
                         <span>Dashboard</span>
                     </a>
@@ -66,35 +66,7 @@
                     
                 </li>
                 
-            
-              
-              
-                <li class="sidebar-item  has-sub">
-
-                    <a href="#" class='sidebar-link'>
-                        <i data-feather="alert-circle" width="20"></i> 
-                        <span>Errors</span>
-                    </a>
-
-                    
-                    <ul class="submenu ">
-                        
-                        <li>
-                            <a href="error-403.html">403</a>
-                        </li>
-                        
-                        <li>
-                            <a href="error-404.html">404</a>
-                        </li>
-                        
-                        <li>
-                            <a href="error-500.html">500</a>
-                        </li>
-                        
-                    </ul>
-                    
-                </li>
-                
+       
             
         </ul>
     </div>
@@ -186,11 +158,12 @@
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <h3>Add New User </h3>
+                <h3>Manage Users | [[${pageTitle}]]</h3>
             </div>
            
                 
                     <form th:action="@{/users/save}" method="post" th:object="${user}" onsubmit="return checkEmailUnique(this);">
+                    <input type="hidden" th:field="*{id}" />
                  <div class="card-body">
                         <div class="row">
                         
@@ -216,7 +189,11 @@
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="username-column">Password</label>                            
-                                    <input type="password" class="form-control" th:field="*{password}" required minlength="8" maxlength="20"  />
+                                    <input th:if="${user.id == null}" type="password" class="form-control" 
+									th:field="*{password}" required minlength="8" maxlength="20"  />
+				
+								   <input th:if="${user.id != null}" type="password" class="form-control" 
+									th:field="*{password}" minlength="8" maxlength="20"  />	
                                 </div>
                             </div>
                             
@@ -302,35 +279,19 @@
 		});
 	});
 	
-	/* function checkEmailUnique(form) {
-		url = "[[@{/users/check_email}]]";
-		userEmail = $("#email").val();
-		csrfValue = $("input[name='_csrf']").val();
-		params = {email: userEmail, _csrf: csrfValue};
-		
-		$.post(url, params, function(response) {
-			if (response == 'OK') {
-				form.submit();
-			} else if (response == 'Duplicated') {
-				alert('There is another user having the email: ' + userEmail);
-			}
-			
-		});
-		
-		return false;
-	} */
-	
 	function checkEmailUnique(form) {
 		url = "[[@{/users/check_email}]]";
 		userEmail = $("#email").val();
+		userId = $("#id").val();
 		csrfValue = $("input[name='_csrf']").val();
-		params = {email: userEmail, _csrf: csrfValue};
+		
+		params = {id: userId, email: userEmail, _csrf: csrfValue};
 		
 		$.post(url, params, function(response) {
 			if (response == "OK") {
 				form.submit();
 			} else if (response == "Duplicated") {
-				showModalDialog("Warning", "There is another user having the email: " + userEmail);
+				showModalDialog("Warning", "There is another user having the email " + userEmail);
 			} else {
 				showModalDialog("Error", "Unknown response from server");
 			}
