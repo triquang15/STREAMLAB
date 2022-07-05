@@ -4,13 +4,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import com.aptech.admin.paging.PagingAndSortingHelper;
 import com.aptech.common.entity.Role;
 import com.aptech.common.entity.User;
 
