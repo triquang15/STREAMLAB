@@ -25,11 +25,19 @@
                         <h3>Sign In</h3>
                         <p>Please sign in to continue to TimeZone.</p>
                     </div>
-                    <form th:action="@{/home}" method="post">
+                    <form th:action="@{/login}" method="post">
+                    
+                    <div th:if="${param.error}">
+						<p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+					</div>
+					<div th:if="${param.logout}">
+						<p class="text-warning">You have been logged out.</p>
+					</div>
+					
                         <div class="form-group position-relative has-icon-left">
-                            <label for="username">Username</label>
+                            <label for="email">Username</label>
                             <div class="position-relative">
-                                <input type="text" class="form-control" id="username">
+                                <input type="email" name="email" class="form-control">
                                 <div class="form-control-icon">
                                     <i data-feather="user"></i>
                                 </div>
@@ -38,12 +46,9 @@
                         <div class="form-group position-relative has-icon-left">
                             <div class="clearfix">
                                 <label for="password">Password</label>
-                                <a href="auth-forgot-password.html" class='float-end'>
-                                    <small>Forgot password?</small>
-                                </a>
                             </div>
                             <div class="position-relative">
-                                <input type="password" class="form-control" id="password">
+                                <input type="password" name="password" class="form-control" id="password">
                                 <div class="form-control-icon">
                                     <i data-feather="lock"></i>
                                 </div>
@@ -52,28 +57,15 @@
 
                         <div class='form-check clearfix my-4'>
                             <div class="checkbox float-start">
-                                <input type="checkbox" id="checkbox1" class='form-check-input' >
+                                <input type="checkbox" name="remember-me" class='form-check-input' >
                                 <label for="checkbox1">Remember me</label>
-                            </div>
-                            <div class="float-end">
-                                <a href="auth-register.html">Don't have an account?</a>
-                            </div>
+                            </div>                        
                         </div>
                         <div class="clearfix">
                             <button class="btn btn-primary float-end" type="submit">Submit</button>
                         </div>
                     </form>
-                    <div class="divider">
-                        <div class="divider-text">OR</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <button class="btn btn-block mb-2 btn-primary"><i data-feather="facebook"></i> Facebook</button>
-                        </div>
-                        <div class="col-sm-6">
-                            <button class="btn btn-block mb-2 btn-secondary"><i data-feather="github"></i> Github</button>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -81,9 +73,8 @@
 </div>
 
     </div>
-    <script th:src="@{/js/feather.min.js}"></script>
-    <script th:src="@{/js/app.js}"></script>
-    
+     <script th:src="@{/js/feather-icons/feather.min.js}"></script>
+    <script th:src="@{/js/app.js}"></script>  
     <script th:src="@{/js/main.js}"></script>
 </body>
 
