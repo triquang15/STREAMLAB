@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+ <div id="sidebar" class='active' th:fragment="sidebar">
+            <div class="sidebar-wrapper active">
+    <div class="sidebar-header">
+    	<a th:href="@{/}"><img th:src="@{/images/logo.jpg}"></a>
+        
+    </div>
+    <div class="sidebar-menu">
+        <ul class="menu">
+                     
+                <li class='sidebar-title'>Main Menu</li>
+                                         
+                <li class="sidebar-item active ">
+                    <a th:href="@{/}" class='sidebar-link'>
+                        <i data-feather="home" width="20"></i> 
+                        <span>Dashboard</span>
+                    </a>
+                  
+                </li>
+                                          
+                <li class="sidebar-item  has-sub">
+
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="triangle" width="20"></i> 
+                        <span>Authentication</span>
+                    </a>
+
+                    
+                    <ul class="submenu ">
+                        
+                        <li>
+                            <a th:href="@{/users}">Manage Users</a>
+                        </li>                                                             
+                       
+                    </ul>
+                    
+                </li>
+                                        
+                <li class="sidebar-item  has-sub">
+
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="briefcase" width="20"></i> 
+                        <span>Categories</span>
+                    </a>
+                
+                    <ul class="submenu ">                      
+                        <li>
+                            <a href="component-extra-avatar.html">Manage Users</a>
+                        </li>                                                                 
+                    </ul>
+                    
+                </li>
+                
+                <li class="sidebar-item  has-sub">
+
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="briefcase" width="20"></i> 
+                        <span>Brands</span>
+                    </a>
+                
+                    <ul class="submenu ">                      
+                        <li>
+                            <a href="component-extra-avatar.html">Manage Brands</a>
+                        </li>                                                                 
+                    </ul>
+                    
+                </li>
+                
+                <li class="sidebar-item  has-sub">
+
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="briefcase" width="20"></i> 
+                        <span>Products</span>
+                    </a>
+                
+                    <ul class="submenu ">                      
+                        <li>
+                            <a href="component-extra-avatar.html">Manage Products</a>
+                        </li>      
+                        
+                         <li>
+                            <a href="component-extra-divider.html">Review</a>
+                        </li>                                                           
+                    </ul>
+                    
+                </li>
+                
+                 <li class="sidebar-item  has-sub">
+
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="briefcase" width="20"></i> 
+                        <span>Customer</span>
+                    </a>
+                
+                    <ul class="submenu ">                      
+                        <li>
+                            <a href="component-extra-avatar.html">Manage Customer</a>
+                        </li>                                                                 
+                    </ul>
+                    
+                </li>
+                
+                 <li class="sidebar-item">
+
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="briefcase" width="20"></i> 
+                        <span>Shipping Rate</span>
+                    </a>
+                    
+                </li>
+                
+                 <li class="sidebar-item">
+
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="briefcase" width="20"></i> 
+                        <span>Manage Order</span>
+                    </a>
+                
+                </li>
+                
+                 <li class="sidebar-item">
+
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="briefcase" width="20"></i> 
+                        <span>Sales Report</span>
+                    </a>
+                
+                </li>
+                   
+                                                  
+        </ul>
+    </div>
+    <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+</div>
+        
+        </div>
+</body>
+</html>
