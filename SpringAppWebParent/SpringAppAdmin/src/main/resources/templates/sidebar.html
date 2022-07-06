@@ -41,18 +41,13 @@
                  </th:block>           
                  
                  <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">  
-                <li class="sidebar-item  has-sub">
+                <li class="sidebar-item">
 
-                    <a href="#" class='sidebar-link'>
+                    <a th:href="@{/categories}" class='sidebar-link'>
                         <i data-feather="briefcase" width="20"></i> 
                         <span>Categories</span>
                     </a>
                 
-                    <ul class="submenu ">                      
-                        <li>
-                            <a href="component-extra-avatar.html">Manage Users</a>
-                        </li>                                                                 
-                    </ul>
                     
                 </li>
                 

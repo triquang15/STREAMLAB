@@ -24,7 +24,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
 public class Category extends IdBasedEntity {
 
 	@Column(length = 128, nullable = false, unique = true)
@@ -89,13 +88,26 @@ public class Category extends IdBasedEntity {
 		this.alias = name;
 		this.image = "default.png";
 	}
+	
+	public Category(String name, Category parent) {
+		this(name);
+		this.parent = parent;
+	}	
 
+//	@Transient
+//	public String getImagePath() {
+//		if (this.id == null)
+//			return "/images/image-thumbnail.png";
+//
+//		return Constants.S3_BASE_URI + "/category-images/" + this.id + "/" + this.image;
+//	}
+
+	
 	@Transient
 	public String getImagePath() {
-		if (this.id == null)
-			return "/images/image-thumbnail.png";
-
-		return Constants.S3_BASE_URI + "/category-images/" + this.id + "/" + this.image;
+		if (id == null || image == null) return "/images/image-thumbnail.png";
+		
+		return "/category-images/" + this.id + "/" + this.image;
 	}
 
 	public boolean isHasChildren() {
