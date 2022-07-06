@@ -19,7 +19,8 @@
                     </a>
                   
                 </li>
-                                          
+                     
+                     <th:block sec:authorize="hasAuthority('Admin')">                     
                 <li class="sidebar-item  has-sub">
 
                     <a href="#" class='sidebar-link'>
@@ -37,19 +38,16 @@
                     </ul>
                     
                 </li>
-                                        
-                <li class="sidebar-item  has-sub">
+                 </th:block>           
+                 
+                 <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">  
+                <li class="sidebar-item">
 
-                    <a href="#" class='sidebar-link'>
+                    <a th:href="@{/categories}" class='sidebar-link'>
                         <i data-feather="briefcase" width="20"></i> 
                         <span>Categories</span>
                     </a>
                 
-                    <ul class="submenu ">                      
-                        <li>
-                            <a href="component-extra-avatar.html">Manage Users</a>
-                        </li>                                                                 
-                    </ul>
                     
                 </li>
                 
@@ -67,7 +65,9 @@
                     </ul>
                     
                 </li>
+                </th:block>
                 
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Editor', 'Shipper')">
                 <li class="sidebar-item  has-sub">
 
                     <a href="#" class='sidebar-link'>
@@ -86,7 +86,9 @@
                     </ul>
                     
                 </li>
+                </th:block>
                 
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
                  <li class="sidebar-item  has-sub">
 
                     <a href="#" class='sidebar-link'>
@@ -110,7 +112,19 @@
                     </a>
                     
                 </li>
+                </th:block>
+                <th:block sec:authorize="hasAnyAuthority('Admin','Assistant')">
+                 <li class="sidebar-item">
+
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="briefcase" width="20"></i> 
+                        <span>Review</span>
+                    </a>
+                    
+                </li>
+                </th:block>
                 
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Shipper')">
                  <li class="sidebar-item">
 
                     <a href="#" class='sidebar-link'>
@@ -119,7 +133,9 @@
                     </a>
                 
                 </li>
+                </th:block>
                 
+                <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
                  <li class="sidebar-item">
 
                     <a href="#" class='sidebar-link'>
@@ -128,7 +144,7 @@
                     </a>
                 
                 </li>
-                   
+                  </th:block>
                                                   
         </ul>
     </div>
