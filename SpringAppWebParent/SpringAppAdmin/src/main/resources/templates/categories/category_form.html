@@ -20,47 +20,44 @@
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <h3>Manage Users | [[${pageTitle}]]</h3>
+                <h3>Manage Categories | [[${pageTitle}]]</h3>
             </div>
            
                 
-                    <form th:action="@{/users/save}" method="post" enctype="multipart/form-data"
-                    	 th:object="${user}" onsubmit="return checkEmailUnique(this);">
+                    <form th:action="@{/categories/save}" method="post" enctype="multipart/form-data"
+                    onsubmit="return checkUnique(this)"
+                    	 th:object="${category}">
                     <input type="hidden" th:field="*{id}" />
                  <div class="card-body">
                         <div class="row">
                         
                         	 <div class="col-md-6 col-12">
                                 <div class="form-group">
-                                    <label for="email-id-column">Email</label>
-                                    <input type="email" class="form-control" th:field="*{email}" required minlength="8" maxlength="128">
+                                    <label for="email-id-column">Category Name</label>
+                                    <input type="text" class="form-control" th:field="*{name}" required minlength="3" maxlength="128">
                                 </div>
                             </div>
                             
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
-                                    <label for="first-name-column">First Name</label>
-                                    <input type="text" th:field="*{firstName}" required minlength="2" maxlength="45" class="form-control"  name="fname-column">
+                                    <label for="first-name-column">Alias</label>
+                                    <input type="text" th:field="*{alias}" required minlength="3" maxlength="64" class="form-control"  name="fname-column">
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
-                                    <label for="last-name-column">Last Name</label>
-                                    <input type="text" class="form-control"  name="lname-column" th:field="*{lastName}" required minlength="2" maxlength="45">
+                                    <label for="last-name-column">Parent Category</label>
+                                    <select class="form-control" th:field="*{parent}">
+										<option value="0">[No Parent]</option>
+										
+										<th:block th:each="cat : ${listCategories}">
+										<option th:value="${cat.id}">[[${cat.name}]]</option>
+										</th:block>
+										
+									</select>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    <label for="username-column">Password</label>                            
-                                    <input th:if="${user.id == null}" type="password" class="form-control" 
-									th:field="*{password}" required minlength="8" maxlength="20"  />
-				
-								   <input th:if="${user.id != null}" type="password" class="form-control" 
-									th:field="*{password}" minlength="8" maxlength="20"  />	
-                                </div>
-                            </div>
-                            
-                           
+                             
                              <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="username-column">Enabled</label>                            
@@ -70,27 +67,15 @@
                             
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
-                                    <label for="username-column">Photos</label> 
-                                    <input type="hidden" th:field="*{photos}" />                           
-                                    <input type="file" name="image" id="fileImage" accept="image/png, image/jpeg, image/jpg"/>
-                                    <img id='thumbnail' alt="Image preview" th:src="@{${user.photosImagePath}}" class="img-fluid" style="height: 150px;">
+                                    <label for="username-column">Image</label> 
+                                    <input type="hidden" th:field="*{image}" />                           
+                                    <input type="file" name="fileImage" id="fileImage" accept="image/png, image/jpeg, image/jpg"
+                                    th:required="${category.imagePath == null}"/>
+                                    <img id='thumbnail' alt="Image preview" th:src="@{${category.imagePath}}" class="img-fluid" style="height: 150px;">
                                 </div>
                             </div>
                            
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    <label for="username-column">Roles</label>   <br>                        
-                                    <th:block th:each="role : ${listRoles}">
-							<input type="checkbox" th:field="*{roles}" 
-								th:text="${role.name}"
-								th:value="${role.id}"
-								class="m-2"
-								/>
-							- <small>[[${role.description}]]</small>
-								<br/>
-						</th:block>
-                                </div>
-                            </div>
+                  
                            
                         </diV>
 
@@ -116,33 +101,39 @@
     </div>
     
 <script type="text/javascript">
-		moduleURL = "[[@{/users}]]";
+	moduleURL = "[[@{/categories}]]";
 	
-	function checkEmailUnique(form) {
-		url = "[[@{/users/check_email}]]";
-		userEmail = $("#email").val();
-		userId = $("#id").val();
+	function checkUnique(form) {
+		catId = $("#id").val();
+		catName = $("#name").val();
+		catAlias = $("#alias").val();
+		
 		csrfValue = $("input[name='_csrf']").val();
 		
-		params = {id: userId, email: userEmail, _csrf: csrfValue};
+		url = "[[@{/categories/check_unique}]]";
+		
+		params = {id: catId, name: catName, alias: catAlias, _csrf: csrfValue};
 		
 		$.post(url, params, function(response) {
 			if (response == "OK") {
 				form.submit();
-			} else if (response == "Duplicated") {
-				showModalDialog("Warning", "There is another user having the email " + userEmail);
+			} else if (response == "DuplicateName") {
+				showWarningModal("There is another category having same name " + catName);	
+			} else if (response == "DuplicateAlias") {
+				showWarningModal("There is another category having same alias " + catAlias);
 			} else {
-				showModalDialog("Error", "Unknown response from server");
+				showErrorModal("Unknown response from server");
 			}
+			
 		}).fail(function() {
-			showModalDialog("Error", "Could not connect to the server");
+			showErrorModal("Could not connect to the server");
 		});
 		
 		return false;
 	}
 	
 </script>
-	<script th:src="@{/js/common_form.js}"></script>
+<script th:src="@{/js/common_form.js}"></script>
     <script th:src="@{/js/feather-icons/feather.min.js}"></script>
     <script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
     <script th:src="@{/js/app.js}"></script>  
