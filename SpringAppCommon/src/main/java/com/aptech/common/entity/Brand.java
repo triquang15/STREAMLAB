@@ -13,13 +13,17 @@ import javax.persistence.Transient;
 import com.aptech.common.Constants;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table(name = "brands")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @ToString
 public class Brand extends IdBasedEntity {
 
@@ -37,12 +41,19 @@ public class Brand extends IdBasedEntity {
 		this.name = name;
 		this.logo = "brand-logo.png";
 	}
-
+	
 	@Transient
 	public String getLogoPath() {
-		if (this.id == null)
-			return "/images/image-thumbnail.png";
-
-		return Constants.S3_BASE_URI + "/brand-logos/" + this.id + "/" + this.logo;
+		if (this.id == null) return "/images/image-thumbnail.png";
+		
+		return "/brand-logos/" + this.id + "/" + this.logo;		
 	}
+
+//	@Transient
+//	public String getLogoPath() {
+//		if (this.id == null)
+//			return "/images/image-thumbnail.png";
+//
+//		return Constants.S3_BASE_URI + "/brand-logos/" + this.id + "/" + this.logo;
+//	}
 }
