@@ -103,14 +103,22 @@ public class Product extends IdBasedEntity {
 	public void addExtraImage(String imageName) {
 		this.images.add(new ProductImage(imageName, this));
 	}
-
+	
+	
 	@Transient
 	public String getMainImagePath() {
-		if (id == null || mainImage == null)
-			return "/images/image-thumbnail.png";
-
-		return Constants.S3_BASE_URI + "/product-images/" + this.id + "/" + this.mainImage;
+		if (id == null || mainImage == null) return "/images/image-thumbnail.png";
+		
+		return "/product-images/" + this.id + "/" + this.mainImage;
 	}
+
+//	@Transient
+//	public String getMainImagePath() {
+//		if (id == null || mainImage == null)
+//			return "/images/image-thumbnail.png";
+//
+//		return Constants.S3_BASE_URI + "/product-images/" + this.id + "/" + this.mainImage;
+//	}
 
 	public void addDetail(String name, String value) {
 		this.details.add(new ProductDetail(name, value, this));

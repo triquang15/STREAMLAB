@@ -10,7 +10,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import com.aptech.common.Constants;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,6 +39,11 @@ public class Brand extends IdBasedEntity {
 	public Brand(String name) {
 		this.name = name;
 		this.logo = "brand-logo.png";
+	}
+	
+	public Brand(Integer id, String name) {
+		this.id = id;
+		this.name = name;
 	}
 	
 	@Transient

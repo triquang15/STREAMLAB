@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page_head('Brands - TimeZone Admin')" />
+<head th:replace="fragments :: page_head('Brands - TimeZone Admin', 'none')" />
 <body>
     <div id="app">
        <span th:replace="sidebar :: sidebar"></span>
@@ -43,7 +43,7 @@
                     <tbody>
                        <tr th:each="brand : ${listBrands}">
                             <td>[[${brand.id}]]</td>
-							<td><img th:src="@{${brand.logoPath}}" style="width: 100px" class="img-fluid"/></td>
+							<td><img th:src="@{${brand.logoPath}}" style="width: 80px" class="img-fluid "/></td>
 							<td>[[${brand.name}]]</td>
 							<td>
 								<th:block th:each="cat : ${brand.categories}">
