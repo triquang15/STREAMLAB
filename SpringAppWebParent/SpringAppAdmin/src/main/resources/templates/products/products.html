@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page_head('Categories - TimeZone Admin', 'none')" />
+<head th:replace="fragments :: page_head('Products - Shopme Admin', 'none')" />
 <body>
     <div id="app">
        <span th:replace="sidebar :: sidebar"></span>
@@ -21,8 +21,8 @@
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <h3>Manage Categories </h3> <br>
-                <a th:href="@{/categories/new}">Add New Category</a>
+                <h3>Manage Products </h3> <br>
+                <a th:href="@{/products/new}">Add New Product</a>
                
             </div>
             
@@ -34,40 +34,48 @@
                     <thead >
                         <tr>      
                        	    <th>ID</th>
-							<th>Category Image</th>
-							<th>Category Name</th>
-							<th>Alias</th>
+							<th>Main Image</th>
+							<th>Product Name</th>
+							<th>Brand</th>
+							<th>Category</th>
 							<th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                       <tr th:each="cat : ${listCategories}">
-                            <td>[[${cat.id}]]</td>
-							<td><img th:src="@{${cat.imagePath}}" style="width: 100px" class="img-fluid"/></td>
-							<td>[[${cat.name}]]</td>
-							<td>[[${cat.alias}]]</td>
-                            <td>                        
-                                <a th:if="${cat.enabled == true}" class="fas fa-check-circle icon-green" 
-									th:href="@{'/categories/' + ${cat.id} + '/enabled/false'}"
-									title="Disable this category">
+                       <tr th:each="product : ${listProducts}">
+                            <td>[[${product.id}]]</td>
+							<td>
+								<img th:src="@{${product.mainImagePath}}" style="width: 120px" class="img-fluid" />
+							</td>
+							<td>[[${product.name}]]</td>
+							<td>[[${product.brand.name}]]</td>
+							<td>[[${product.category.name}]]</td>
+                           	 <td>                        
+                                <a th:if="${product.enabled == true}" class="fas fa-check-circle icon-green" 
+									th:href="@{'/products/' + ${product.id} + '/enabled/false'}"
+									title="Disable this product">
 								</a>
 								
-                                <a th:if="${cat.enabled == false}" class="fas fa-circle icon-dark" 
-                               		 th:href="@{'/categories/' + ${cat.id} + '/enabled/true'}"
-                               		 title="Enable this category">
+                                <a th:if="${product.enabled == false}" class="fas fa-circle icon-dark" 
+                               		 th:href="@{'/products/' + ${product.id} + '/enabled/true'}"
+                               		 title="Enable this product">
                                	</a>
                             </td>
                             <td>
-                            <a class="fas fa-edit" th:href="@{'categories/edit/' + ${cat.id}}"
-                                title="Edit this category"></a>
+                             <a class="fas fa-file-alt" th:href="@{'products/detail/' + ${product.id}}"
+                                title="View"></a>
 								 &nbsp;
-							<th:block th:if="${cat.hasChildren == false}">
+								 
+                            <a class="fas fa-edit" th:href="@{'products/edit/' + ${product.id}}"
+                                title="Edit this product"></a>
+								 &nbsp;
+						
 							<a class="fas fa-trash icon-red link-delete" 
-							th:href="@{'/categories/delete/' + ${cat.id}}"
-							th:catId="${cat.id}"
-							title="Delete this category"></a>
-						</th:block>	
+							th:href="@{'/products/delete/' + ${product.id}}"
+							th:productId="${product.id}"
+							title="Delete this product"></a>
+					
 							</td>
                         </tr>
                        
@@ -87,18 +95,19 @@
     </div>
    
 <script type="text/javascript">
-	moduleURL = "[[@{/categories}]]";
-
+	moduleURL = "[[@{/brands}]]";
+	
 	$(document).ready(function() {
 		$(".link-delete").on("click", function(e) {
 			e.preventDefault();
 			link = $(this);
-			catId = link.attr("catId");
+			productId = link.attr("productId");
 			$("#yesButton").attr("href", link.attr("href"));
-			$("#confirmText").text("Are you sure you want to delete this category ID " + catId + "?");
+			$("#confirmText").text("Are you sure you want to delete this product ID " + productId + "?");
 			$("#confirmModal").modal('show');
 		});
 	});
+	
 </script>
    <script th:src="@{/js/feather-icons/feather.min.js}"></script>
     <script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
