@@ -52,7 +52,13 @@
 			  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
 			  	<div th:replace="products/product_images :: content"></div>
 			  </div>
-			  <div class="tab-pane fade" id="pills-details" role="tabpanel" aria-labelledby="pills-contact-tab">Details</div>
+			  <div class="tab-pane fade" id="pills-details" role="tabpanel" aria-labelledby="pills-contact-tab">
+			  		<div th:replace="products/product_details :: content"></div> <br>
+			  		<div>
+		  			<input type="button" class="btn btn-secondary" value="Add More Detail"
+		  			onclick="addNextDetailSection()" />
+		  	</div>	
+			  </div>
 			  <div class="tab-pane fade" id="pills-shipping" role="tabpanel" aria-labelledby="pills-contact-tab">
 			  		<div th:replace="products/product_shipping :: content"></div>
 			  </div>
@@ -81,64 +87,17 @@
     </div>
     
 <script type="text/javascript">
+	MAX_FILE_SIZE = 502400; // 500KB
+	
 	moduleURL = "[[@{/products}]]";
 	brandModuleURL = "[[@{/brands}]]";
-	
-	dropdownBrands = $("#brand");
-	dropdownCategories = $("#category");
-	
-	$(document).ready(function() {
-		
-		$("#shortDescription").richText();
-		$("#fullDescription").richText();
-		
-		dropdownBrands.change(function() {
-			dropdownCategories.empty();
-			getCategories();
-		});	
-		
-		getCategories();
-	});
-	
-	
-	function getCategories() {
-		brandId = dropdownBrands.val(); 
-		url = brandModuleURL + "/" + brandId + "/categories";
-		
-		$.get(url, function(responseJson) {
-			$.each(responseJson, function(index, category) {
-				$("<option>").val(category.id).text(category.name).appendTo(dropdownCategories);
-			});			
-		});
-	}
-	
-	function checkUnique(form) {
-		productId = $("#id").val();
-		productName = $("#name").val();
-		
-		csrfValue = $("input[name='_csrf']").val();
-		
-		url = "[[@{/products/check_unique}]]";
-		
-		params = {id: productId, name: productName, _csrf: csrfValue};
-		
-		$.post(url, params, function(response) {
-			if (response == "OK") {
-				form.submit();
-			} else if (response == "Duplicate") {
-				showWarningModal("There is another product having the name " + productName);	
-			} else {
-				showErrorModal("Unknown response from server");
-			}
-			
-		}).fail(function() {
-			showErrorModal("Could not connect to the server");
-		});
-		
-		return false;
-	}	
+	defaultImageThumbnailSrc = "[[@{/images/image-thumbnail.png}]]";
+	checkUniqueUrl = "[[@{/products/check_unique}]]";
 </script>
-<script th:src="@{/js/common_form.js}"></script>
+	<script th:src="@{/js/common_form.js}"></script>
+	<script th:src="@{/js/product_form_overview.js}"></script>
+	<script th:src="@{/js/product_form_images.js}"></script>
+	<script th:src="@{/js/product_form_details.js}"></script>
     <script th:src="@{/js/feather-icons/feather.min.js}"></script>
     <script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
     <script th:src="@{/js/app.js}"></script>  
