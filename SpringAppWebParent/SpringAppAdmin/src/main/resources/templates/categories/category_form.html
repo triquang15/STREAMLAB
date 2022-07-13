@@ -71,7 +71,7 @@
                                     <input type="hidden" th:field="*{image}" />                           
                                     <input type="file" name="fileImage" id="fileImage" accept="image/png, image/jpeg, image/jpg"
                                     th:required="${category.imagePath == null}"/>
-                                    <img id='thumbnail' alt="Image preview" th:src="@{${category.imagePath}}" class="img-fluid" style="height: 150px;">
+                                    <img id='thumbnail' alt="Image preview" th:src="@{${category.imagePath}}" class="img-fluid" style="height: 100px;">
                                 </div>
                             </div>
                            
@@ -102,6 +102,7 @@
     
 <script type="text/javascript">
 	moduleURL = "[[@{/categories}]]";
+	MAX_FILE_SIZE = 512000; // 100KB
 	
 	function checkUnique(form) {
 		catId = $("#id").val();

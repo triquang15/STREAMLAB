@@ -14,7 +14,7 @@ public class SecurityConfiguration {
 
 	@Bean
 	public UserDetailsService userDetailsService() {
-		return new TimeZoneUserDetailsService();
+		return new StreamLabUserDetailsService();
 	}
 
 	@Bean
@@ -28,21 +28,21 @@ public class SecurityConfiguration {
 		http.authorizeRequests()
 		.antMatchers("/states/list_by_country/**").hasAnyAuthority("Admin", "Salesperson")
 		.antMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin")
-		.antMatchers("/categories/**", "/brands/**").hasAnyAuthority("Admin", "Editor")
+		.antMatchers("/categories/**").hasAnyAuthority("Admin", "Editor")
 		
-		.antMatchers("/products/new", "/products/delete/**").hasAnyAuthority("Admin", "Editor")
+		.antMatchers("/movies/new", "/movies/delete/**").hasAnyAuthority("Admin", "Editor")
 		
-		.antMatchers("/products/edit/**", "/products/save", "/products/check_unique")
+		.antMatchers("/movies/edit/**", "/movies/save", "/movies/check_unique")
 			.hasAnyAuthority("Admin", "Editor", "Salesperson")
 			
-		.antMatchers("/products", "/products/", "/products/detail/**", "/products/page/**")
+		.antMatchers("/movies", "/movies/", "/movies/detail/**", "/movies/page/**")
 			.hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
 			
-		.antMatchers("/products/**").hasAnyAuthority("Admin", "Editor")
+		.antMatchers("/movies/**").hasAnyAuthority("Admin", "Editor")
 		
 		.antMatchers("/orders", "/orders/", "/orders/page/**", "/orders/detail/**").hasAnyAuthority("Admin", "Salesperson", "Shipper")
 		
-		.antMatchers("/products/detail/**", "/customers/detail/**").hasAnyAuthority("Admin", "Editor", "Salesperson", "Assistant")
+		.antMatchers("/movies/detail/**", "/customers/detail/**").hasAnyAuthority("Admin", "Editor", "Salesperson", "Assistant")
 
 		.antMatchers("/customers/**", "/orders/**", "/get_shipping_cost", "/reports/**").hasAnyAuthority("Admin", "Salesperson")
 		

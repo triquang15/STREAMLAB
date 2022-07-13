@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag">
+	<div class="row" id="divProductImages">
+		<div class="col border m-3 p-2">
+			<div><label>Main Image:</label></div>
+			<div class="m-2">
+				<img id="thumbnail" alt="Image preview" class="img-fluid" style="height: 100px;"
+					th:src="@{${movie.mainVideoPath}}"/>
+			</div>
+			<div>
+				<input type="file" id="fileVideo" name="fileVideo" required
+					accept="image/*" />
+			</div>
+		</div>
+		
+		<div class="col border m-3 p-2" id="divExtraImage0">
+			<div id="extraImageHeader0"><label>Extra Video #1:</label></div>
+			<div class="m-2">
+				
+					 <video controls id='extraThumbnail0' width="80%" height="150px"></video>      																
+			</div>
+			<div>
+				<input type="file" name="extraVideo" 
+					accept="video/*" />
+			</div>
+		</div>		
+	</div>	
+</div>		
+</body>
+</html>

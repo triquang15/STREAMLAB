@@ -1,8 +1,5 @@
 package com.aptech.common.entity;
 
-import java.util.Set;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,10 +24,5 @@ public class Address extends AbstractAddressWithCountry {
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
-	@Column(name = "default_address")
-	private boolean defaultForShipping;
-
-	
-	
 
 }
