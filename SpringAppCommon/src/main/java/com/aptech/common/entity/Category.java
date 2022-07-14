@@ -11,10 +11,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import com.aptech.common.Constants;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,9 +32,6 @@ public class Category extends IdBasedEntity {
 	private String image;
 
 	private boolean enabled;
-
-	@Column(name = "all_parent_ids", length = 256, nullable = true)
-	private String allParentIDs;
 
 	@OneToOne
 	@JoinColumn(name = "parent_id")

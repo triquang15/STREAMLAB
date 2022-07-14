@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aptech.admin.FileUploadUtil;
-import com.aptech.admin.security.TimeZoneUserDetails;
+import com.aptech.admin.security.StreamLabUserDetails;
 import com.aptech.admin.user.UserService;
 import com.aptech.common.entity.User;
 
@@ -24,7 +24,7 @@ public class AccountController {
 	private UserService service;
 
 	@GetMapping("/account")
-	public String viewDetails(@AuthenticationPrincipal TimeZoneUserDetails loggedUser, Model model) {
+	public String viewDetails(@AuthenticationPrincipal StreamLabUserDetails loggedUser, Model model) {
 		String email = loggedUser.getUsername();
 		User user = service.getByEmail(email);
 		model.addAttribute("user", user);
@@ -35,7 +35,7 @@ public class AccountController {
 
 	@PostMapping("/account/update")
 	public String saveDetails(User user, RedirectAttributes redirectAttributes,
-			@AuthenticationPrincipal TimeZoneUserDetails loggedUser, @RequestParam("image") MultipartFile multipartFile)
+			@AuthenticationPrincipal StreamLabUserDetails loggedUser, @RequestParam("image") MultipartFile multipartFile)
 			throws IOException {
 
 		if (!multipartFile.isEmpty()) {

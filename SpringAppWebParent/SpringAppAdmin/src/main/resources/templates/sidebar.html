@@ -51,20 +51,7 @@
                     
                 </li>
                 
-                <li class="sidebar-item  has-sub">
-
-                    <a href="#" class='sidebar-link'>
-                        <i data-feather="inbox" width="20"></i> 
-                        <span>Brands</span>
-                    </a>
-                
-                    <ul class="submenu ">                      
-                        <li>
-                            <a th:href="@{/brands}">Manage Brands</a>
-                        </li>                                                                 
-                    </ul>
-                    
-                </li>
+            
                 </th:block>
                 
                 <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Editor', 'Shipper')">
@@ -72,12 +59,12 @@
 
                     <a href="#" class='sidebar-link'>
                         <i data-feather="loader" width="20"></i> 
-                        <span>Products</span>
+                        <span>Movies</span>
                     </a>
                 
                     <ul class="submenu ">                      
                         <li>
-                            <a th:href="@{/products}">Manage Products</a>
+                            <a th:href="@{/movies}">Manage Movies</a>
                         </li>      
                         
                          <li>
